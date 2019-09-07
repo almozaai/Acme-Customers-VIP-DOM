@@ -1,10 +1,101 @@
 <html>
   <head>
     <style>
+      form{
+        display: grid;
+        grid-template-columns: 20% 5% 75%;
+        grid-template-rows: 50px 50px 50px;
+        padding: 10px;
+      }
+      input{
+        grid-column-start: 3;
+        grid-column-end: 4;
+        margin-top: 10px;
+      }
+      label{
+        grid-column-start: 1;
+        grid-column-end: 2;
+        padding-top: 10px;
+      }
+      #last{
 
+      }
+      #form{
+        margin: 20px;
+        border: 1px solid black;
+      }
+      .count{
+        height: 30px;
+        width: 100%;
+        background-color: black;
+        margin: 0 20px;
+        border-radius: 10px;
+      }
+      ul{
+        display: block;
+      }
+      li{
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        list-style: none;
+      }
+      .selected{
+        background-color: rgb(34, 71, 235);
+        color: white;
+      }
+      .count{
+        color: white;
+      }
     </style>
   </head>
-  <body>
+  <body >
+    <h1>Acme Customers VIP</h1>
+    <div id="form">
+        <h3>Customer Input Form</h3>
+      <form>
 
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name">
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email">
+        <label for="vip" id="last">isVIP</label>
+        <input type="checkbox" name="vip" id="vip">
+        <button id="submit">Create</button>
+      </form>
+    </div>
+    <div class="count"></div>
+    <ul id="list"></ul>
+    <script>
+       let customers = [
+      { id: 1, name: 'moe', email: 'moe@gmail.com', isVIP: true},
+      { id: 2, name: 'larry', isVIP: true, email: 'larry@gmail.com'},
+      { id: 3, name: 'shep', email: 'shep@gmail.com'},
+     ];
+      const name = document.querySelector('input[name="name"]');
+      const email = document.querySelector('input[name="email"]');
+      const isVip = document.querySelector('input[name="vip"]');
+      const submit = document.querySelector('#submit');
+      const list = document.querySelector('#list');
+      const count = document.querySelector('.count')
+      const render = (data, container) => {
+       const html = data.map(item => `<li data-idx='${item.id}' class=${item.isVIP?'selected':''}><p>${item.name} (${item.email})</p><button>Distroid</button></li>`).join('');
+       container.innerHTML = html;
+
+      };
+
+
+      submit.addEventListener('click', ev => {
+        ev.preventDefault();
+        const length = customers.length + 1
+        customers.push({id:length,name:`${name.value}`, email:`${email.value}`,isVIP:isVip.checked })
+        const countVip = (customers.filter(item => item.isVIP)).length
+        count.innerHTML = countVip
+        render(customers,list)
+
+      })
+
+
+    </script>
   </body>
 </html>
