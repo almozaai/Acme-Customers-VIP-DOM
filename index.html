@@ -81,9 +81,7 @@
       const render = (data, container) => {
        const html = data.map(item => `<li data-idx='${item.id}' class=${item.isVIP?'selected':''}><p>${item.name} (${item.email})</p><button>Distroid</button></li>`).join('');
        container.innerHTML = html;
-
       };
-
 
       submit.addEventListener('click', ev => {
         ev.preventDefault();
@@ -92,8 +90,8 @@
         const countVip = (customers.filter(item => item.isVIP)).length
         count.innerHTML = countVip
         render(customers,list)
-
       })
+
 
 
     </script>
